@@ -2,7 +2,7 @@
 const BACKEND = window.location.hostname === 'localhost' ||
                 window.location.hostname === '127.0.0.1'
                 ? 'http://localhost:3000'
-                : 'https://freshsense-backend.onrender.com';
+                : 'https://freshsense.onrender.com';
 
 // ── Particle Canvas ───────────────────────────────────────────
 const canvas = document.getElementById('particle-canvas');
