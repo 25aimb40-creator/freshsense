@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FreshSense – Food Shelf Life AI</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <canvas id="particle-canvas"></canvas>
+
+  <nav>
+    <div class="nav-logo">Fresh<span>Sense</span></div>
+    <div class="nav-links">
+      <a href="#checker">AI Checker</a>
+      <a href="#database">Database</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#about-aiml">AIML</a>
+      <a href="#developer">Developer</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="hero-eyebrow">AI-Powered Food Intelligence</div>
+    <h1>Know Your Food's<br><em>True Shelf Life</em></h1>
+    <p>Upload a photo of any food item and let our AI analyze freshness, estimate remaining shelf life, and give smart storage tips — instantly.</p>
+    <div class="hero-cta">
+      <a href="#checker" class="btn-primary">Try AI Checker →</a>
+      <a href="#database" class="btn-outline">Browse Database</a>
+    </div>
+    <div class="scroll-hint">scroll</div>
+  </section>
+
+  <!-- AI Checker -->
+  <section id="checker">
+    <div class="section-wrapper">
+      <div class="section-label">Core Feature</div>
+      <h2 class="section-title">AI Food Freshness Checker</h2>
+      <p class="section-sub">Upload a food photo. The AIML model analyzes color, texture, and shape to assess freshness.</p>
+      <div class="checker-grid reveal">
+        <div>
+          <div class="upload-zone" id="upload-zone">
+            <span class="upload-icon">📸</span>
+            <h3>Upload Food Photo</h3>
+            <p>Drop an image here or click to browse<br>Supports JPG, PNG, WEBP</p>
+            <button class="btn-primary" onclick="document.getElementById('file-input').click()">Choose Photo</button>
+            <input type="file" id="file-input" accept="image/*"/>
+            <img id="preview-img" alt="Food preview"/>
+          </div>
+          <button class="btn-outline" id="analyze-btn" onclick="analyzeFood()">🔍 Analyze with AI</button>
+        </div>
+        <div class="result-panel">
+          <h3>📊 Analysis Results</h3>
+          <div class="result-placeholder" id="result-placeholder">
+            <span>🥕</span>
+            Upload a food photo to get AI-powered freshness analysis and shelf life estimate.
+          </div>
+          <div class="result-loading" id="result-loading">
+            <div class="spinner"></div>
+            <p>Analyzing visual properties…</p>
+          </div>
+          <div class="result-content" id="result-content">
+            <div class="result-item">
+              <span class="result-label">Freshness Status</span>
+              <span id="r-status">—</span>
+            </div>
+            <div class="result-item">
+              <span class="result-label">Estimated Shelf Life</span>
+              <span class="result-value" id="r-shelf">—</span>
+            </div>
+            <div class="result-item">
+              <span class="result-label">Storage Method</span>
+              <span class="result-value" id="r-storage">—</span>
+            </div>
+            <div class="result-item">
+              <span class="result-label">Confidence Score</span>
+              <span class="result-value" id="r-confidence">—</span>
+            </div>
+            <div class="result-tips" id="r-tips"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Food Database -->
+  <section id="database">
+    <div class="section-label">Reference Guide</div>
+    <h2 class="section-title">Shelf Life Database</h2>
+    <p class="section-sub">Common food items and expected shelf life under optimal storage.</p>
+    <div class="db-grid" id="db-grid"></div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works">
+    <div class="section-wrapper center">
+      <div class="section-label">Process</div>
+      <h2 class="section-title">How FreshSense Works</h2>
+      <p class="section-sub">A three-step AI pipeline that turns a photo into actionable food safety insights.</p>
+      <div class="steps-grid reveal">
+        <div class="step">
+          <span class="step-num">01</span>
+          <h4>Image Preprocessing</h4>
+          <p>Your photo is normalized, resized to 224×224px, and enhanced for color and edge features before model input.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">02</span>
+          <h4>CNN Classification</h4>
+          <p>A fine-tuned Convolutional Neural Network identifies the food type and extracts freshness indicators like discoloration and texture.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">03</span>
+          <h4>Shelf Life Estimation</h4>
+          <p>Results are cross-referenced with a food safety database to produce a shelf life estimate and personalized storage recommendation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About AIML -->
+  <section id="about-aiml">
+    <div class="aiml-grid reveal">
+      <div class="aiml-text">
+        <div class="section-label">Technology</div>
+        <h2 class="section-title">Powered by AI & ML</h2>
+        <p>FreshSense uses a CNN trained via transfer learning on ResNet-50, achieving 91%+ accuracy on food freshness datasets.</p>
+        <p>A Natural Language Generation module converts model output into clear, human-readable recommendations.</p>
+        <div class="pipeline">
+          <div class="pipe-step"><span>🖼️</span><span>Image Input → Resize 224×224px</span></div>
+          <div class="pipe-step"><span>🧠</span><span>CNN Forward Pass → Feature Extraction</span></div>
+          <div class="pipe-step"><span>📊</span><span>Softmax Classification → Freshness Score</span></div>
+          <div class="pipe-step"><span>📝</span><span>NLG Module → Human-Readable Output</span></div>
+          <div class="pipe-step"><span>✅</span><span>Shelf Life + Storage Advice Returned</span></div>
+        </div>
+      </div>
+      <div class="aiml-visual">
+        <h3>Technologies Used</h3>
+        <div class="tag-cloud">
+          <span class="tech-tag">Python 3.11</span>
+          <span class="tech-tag">TensorFlow 2.x</span>
+          <span class="tech-tag">Keras</span>
+          <span class="tech-tag">ResNet-50</span>
+          <span class="tech-tag">OpenCV</span>
+          <span class="tech-tag">NumPy</span>
+          <span class="tech-tag">Pandas</span>
+          <span class="tech-tag">Claude AI API</span>
+          <span class="tech-tag">Scikit-learn</span>
+          <span class="tech-tag">FastAPI</span>
+          <span class="tech-tag">Transfer Learning</span>
+          <span class="tech-tag">NLP / NLG</span>
+        </div>
+        <div class="perf-bars">
+          <div class="section-label" style="margin-top:1.5rem;">Model Performance</div>
+          <div class="perf-item">
+            <div class="perf-row"><span>Classification Accuracy</span><span class="green">91.4%</span></div>
+            <div class="bar"><div class="bar-fill green-bg" style="width:91%"></div></div>
+          </div>
+          <div class="perf-item">
+            <div class="perf-row"><span>Freshness F1 Score</span><span class="amber">88.7%</span></div>
+            <div class="bar"><div class="bar-fill amber-bg" style="width:88%"></div></div>
+          </div>
+          <div class="perf-item">
+            <div class="perf-row"><span>Shelf Life Precision</span><span class="red">85.2%</span></div>
+            <div class="bar"><div class="bar-fill red-bg" style="width:85%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Developer -->
+  <section id="developer">
+    <div class="center-text">
+      <div class="section-label">About the Creator</div>
+      <h2 class="section-title">Meet the Developer</h2>
+    </div>
+    <div class="dev-card reveal">
+      <div class="dev-banner"></div>
+      <div class="dev-body">
+        <div class="dev-avatar">👨‍💻</div>
+        <div class="dev-name">Nandan SD</div>
+        <div class="dev-role">AI & Machine Learning Engineer</div>
+        <div class="dev-info-grid">
+          <div class="dev-info-item">
+            <div class="dev-info-label">🏫 College</div>
+            <div class="dev-info-value">Kristu Jayanti University</div>
+          </div>
+          <div class="dev-info-item">
+            <div class="dev-info-label">🎓 Course</div>
+            <div class="dev-info-value">BSc Artificial Intelligence & Machine Learning</div>
+          </div>
+          <div class="dev-info-item">
+            <div class="dev-info-label">📌 Location</div>
+            <div class="dev-info-value">Bangalore, India</div>
+          </div>
+          <div class="dev-info-item">
+            <div class="dev-info-label">🚀 Project</div>
+            <div class="dev-info-value">FreshSense — Food Shelf Life AI</div>
+          </div>
+        </div>
+        <div class="dev-desc">
+          Nandan SD is a BSc AIML student at Kristu Jayanti University, passionate about applying machine learning to real-world problems. FreshSense demonstrates the practical use of computer vision, CNNs, and natural language generation in solving everyday food safety challenges — covering the complete ML pipeline from dataset curation to deployment.
+        </div>
+        <div class="dev-skills">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Deep Learning</span>
+          <span class="tech-tag">Computer Vision</span>
+          <span class="tech-tag">TensorFlow</span>
+          <span class="tech-tag">HTML / CSS / JS</span>
+          <span class="tech-tag">Data Science</span>
+          <span class="tech-tag">Neural Networks</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Me -->
+  <section id="contact">
+    <div class="center-text">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Contact Me</h2>
+      <p class="section-sub" style="margin:0 auto 3rem;">Have questions about FreshSense or want to collaborate? Send me a message!</p>
+    </div>
+    <div class="contact-card reveal">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Let's Connect</h3>
+          <p>Feel free to reach out for any queries related to the project, collaborations, or just to say hello!</p>
+          <div class="contact-details">
+            <div class="contact-detail-item">
+              <span class="contact-icon">👨‍💻</span>
+              <div>
+                <div class="contact-detail-label">Developer</div>
+                <div class="contact-detail-value">Nandan SD</div>
+              </div>
+            </div>
+            <div class="contact-detail-item">
+              <span class="contact-icon">🏫</span>
+              <div>
+                <div class="contact-detail-label">College</div>
+                <div class="contact-detail-value">Kristu Jayanti University</div>
+              </div>
+            </div>
+            <div class="contact-detail-item">
+              <span class="contact-icon">🎓</span>
+              <div>
+                <div class="contact-detail-label">Course</div>
+                <div class="contact-detail-value">BSc AIML</div>
+              </div>
+            </div>
+            <div class="contact-detail-item">
+              <span class="contact-icon">📍</span>
+              <div>
+                <div class="contact-detail-label">Location</div>
+                <div class="contact-detail-value">Bangalore, India</div>
+              </div>
+            </div>
+            <div class="contact-detail-item">
+              <span class="contact-icon">📸</span>
+              <div>
+                <div class="contact-detail-label">Instagram</div>
+                <div class="contact-detail-value">
+                  <a href="https://www.instagram.com/_.nandan_10._/" target="_blank" class="social-link">@_.nandan_10._</a>
+                </div>
+              </div>
+            </div>
+            <div class="contact-detail-item">
+              <span class="contact-icon">💼</span>
+              <div>
+                <div class="contact-detail-label">LinkedIn</div>
+                <div class="contact-detail-value">
+                  <a href="https://www.linkedin.com/in/nandan-s-d-b3354a3b5/" target="_blank" class="social-link">Nandan SD</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form-box">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input type="text" id="contact-name" class="form-input" placeholder="Enter your name"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="contact-email" class="form-input" placeholder="Enter your email"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea id="contact-message" class="form-input form-textarea" placeholder="Write your message here..."></textarea>
+          </div>
+          <button class="btn-primary" id="contact-submit" onclick="submitContact()" style="width:100%;margin-top:0.5rem;">
+            Send Message ✉️
+          </button>
+          <div id="contact-success" class="contact-success">
+            ✅ Message sent successfully! I will get back to you soon.
+          </div>
+          <div id="contact-error" class="contact-error">
+            ⚠️ Please fill in all fields before sending.
+          </div>
+          <div class="social-buttons">
+            <a href="https://www.instagram.com/_.nandan_10._/" target="_blank" class="social-btn instagram">
+              📸 Instagram
+            </a>
+            <a href="https://www.linkedin.com/in/nandan-s-d-b3354a3b5/" target="_blank" class="social-btn linkedin">
+              💼 LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 <span class="footer-accent">FreshSense</span> — Built by Nandan SD, Kristu Jayanti University</p>
+    <p class="mono">BSc AIML · Food Intelligence · AI-Powered</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
